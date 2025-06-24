@@ -10,9 +10,17 @@ typedef struct Cliente{
 
 //funcoes lista dinamica
 
+
+
 typedef struct elemento* Lista;
 
 Lista *criaLista();
+
+void abrirLista(Lista *li);
+
+void fecharLista(Lista *li);
+
+void mostraLista(Lista *li);
 
 void abortaPrograma();
 
@@ -20,15 +28,21 @@ int tamanhoLista(Lista *li);
 
 int listaVazia(Lista *li);
 
-int insereOrdnado(Lista *li, CTT ct);
+int insereOrdenado(Lista *li, CTT ct);
 
 int removeOrdenado(Lista *li, int cod);
 
-int consultaMat(Lista *li, int mat, CTT *ct);
+int consultaCod(Lista *li, int mat, CTT *ct);
 
 void printConsulta(int a, CTT *ct);
 
 CTT coletaDados();
 
+int altDados(Lista *li, int cod);
+
 //
+
+//funçoes suplementares
+
+int verificarDuplicidade(Lista li, int id);
 

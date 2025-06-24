@@ -6,13 +6,25 @@
 int main()
 {
     //MENU
-    int opcao, x;
+    int opcao, x, codB;
+    char r;
+    CTT ct_consulta;
 
      Lista *li = NULL;
     if ((li = criaLista()) == NULL) {
         abortaPrograma();
     }
     abrirLista(li);
+    x=tamanhoLista(li);
+    if(x){
+        printf("Carregado %d contatos", x);
+    }
+    else{
+        abortaPrograma();
+    }
+    printf("\n\n\n\n\n\n\n\n\nPressione ENTER para continuar...");
+    getchar();
+    system("cls");
 
     do{
         printf("MENU: \n\n");
@@ -25,7 +37,8 @@ int main()
         printf("7 - Encerrar programa.\n");
 
         printf("\nSelecione uma opcao: ");
-        scanf("%d", &opcao);
+        scanf(" %d", &opcao);
+        fflush(stdin);
         system("cls");
 
     switch (opcao){
@@ -33,29 +46,106 @@ int main()
         x = insereOrdenado(li, coletaDados());
         system("cls");
             if (x) {
-                printf("\nContato %d inserido com sucesso!", x);
+                printf("Contato %d inserido com sucesso!", x);
             } else {
-                printf("\nNao foi possivel inserir");
+                printf("Nao foi possivel inserir...");
             }
         printf("\n\n\n\n\n\n\n\n\nPressione ENTER para continuar...");
         getchar();
         system("cls");
+
         break;
+
     case 2: //exibir lista de contatos
-        x= mostraLista(li);
-        printf("\n\n\n\n\n\n\n\n\nPressione ENTER para continuar...");
-        getchar();
+        mostraLista(li);
+        printf("\nPressione ENTER para continuar...");
         getchar();
         system("cls");
         break;
+
     case 3: //buscar contato por codigo
+        printf("Digite o codigo do cliente que deseja consultar: ");
+        scanf("%d", &codB);
+        getchar();
+        x = consultaCod(li, codB, &ct_consulta);
+        if(x){
+            printConsulta(codB, &ct_consulta);
+        }else{
+            printf("Cliente nao localizado...");
+        }
+        printf("\n\n\n\n\n\n\n\n\nPressione ENTER para continuar...");
+        getchar();
+        system("cls");
+
         break;
+
     case 4: //buscar por nome
         break;
+
     case 5: //editar contato
+        printf("Digite o codigo do cliente que deseja editar: ");
+        scanf("%d", &codB);
+        getchar();
+        x = consultaCod(li, codB, &ct_consulta);
+        if(x){
+            printConsulta(codB, &ct_consulta);
+        }else{
+            printf("Cliente nao localizado...");
+            printf("\n\n\n\n\n\n\n\n\nPressione ENTER para continuar...");
+            getchar();
+            system("cls");
+            break;
+        }
+        printf("\n\n");
+        printf("Deseja mesmo editar esse cliente? s/n\n");
+        scanf(" %c", &r);
+        getchar();
+        if(r == 's' || r == 'S'){
+        altDados(li, codB);
+        }
+        else if(r == 'n' || r == 'N'){
+            printf("\nCliente nao editado...\n");
+            printf("Retornando ao menu...");
+            printf("\n\n\n\n\n\n\n\n\nPressione ENTER para continuar...");
+            getchar();
+            system("cls");
+        }
         break;
+
     case 6: //remover contato
+        printf("Digite o codigo do cliente que deseja remover: ");
+        scanf("%d", &codB);
+        getchar();
+
+        x = consultaCod(li, codB, &ct_consulta);
+        if(x){
+            printConsulta(codB, &ct_consulta);
+        }else{
+            printf("Cliente nao localizado...");
+        }
+        printf("\n\n");
+        printf("Deseja mesmo remover esse cliente? s/n\n");
+        scanf(" %c", &r);
+        getchar();
+
+        if(r == 's' || r == 'S'){
+            x = removeOrdenado(li, codB);
+            if (x) {
+                printf("\nCliente %d removido!", codB);
+            } else {
+                printf("\nNao foi possivel remover");
+            }
+        }else if(r == 'n' || r == 'N'){
+            printf("\nCliente nao removido...\n");
+            printf("Retornando ao menu...");
+        }
+
+        printf("\n\n\n\n\n\n\n\n\nPressione ENTER para continuar...");
+        getchar();
+        system("cls");
+
         break;
+//
     case 7: //encerrar
         fecharLista(li);
         exit (0);
