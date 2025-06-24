@@ -147,6 +147,13 @@ int main()
         break;
 //
     case 7: //encerrar
+        x=tamanhoLista(li);
+        if(x){
+            printf("Salvando %d contatos", x);
+        }
+        else{
+            abortaPrograma();
+        }
         fecharLista(li);
         exit (0);
     default:
